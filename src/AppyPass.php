@@ -137,6 +137,11 @@ class AppyPass
         Storage::disk('appypass')->deleteDirectory($this->passRelativePath);
     }
 
+    public function setPassFilename($name)
+    {
+        $this->passFilename = $name;
+    }
+
     /**
      * Add an asset to the pass. Use this function to add images to the pass.
      *
