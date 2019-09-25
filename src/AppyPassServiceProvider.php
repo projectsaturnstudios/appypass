@@ -27,8 +27,6 @@ class AppyPassServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //$this->setupConfig();
-
         $this->publishAllConfigs();
     }
 
@@ -43,8 +41,7 @@ class AppyPassServiceProvider extends ServiceProvider
             return new AppyPass($app);
         });
 
-        //$this->commands($this->commands);
-        $this->app->singleton(AppyPass::class);
+        $this->setupConfig();
     }
 
     /**
@@ -71,7 +68,7 @@ class AppyPassServiceProvider extends ServiceProvider
             __DIR__.'/../config/appypass.php' => config_path('appypass.php'),
         ], 'config');
 
-        $this->mergeConfigFrom(__DIR__.'/../config/appypass.php', 'appypass');
-        $this->mergeConfigFrom(realpath(__DIR__ . '/../config/pass-filesystem.php'), 'filesystems');
+        //$this->mergeConfigFrom(__DIR__.'/../config/appypass.php', 'appypass');
+        //$this->mergeConfigFrom(realpath(__DIR__ . '/../config/pass-filesystem.php'), 'filesystems');
     }
 }
