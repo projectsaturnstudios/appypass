@@ -1,19 +1,19 @@
 {
-    "name": "thenextweb/passgenerator",
-    "description": "A Laravel package to create Apple Wallet (old Passbook) compatible tickets.",
+    "name": "projectsaturn/appypass",
+    "description": "A Laravel package to create Apple Wallet compatible passes.",
     "type": "library",
     "license": "GPL-3.0-or-later",
     "keywords": ["php", "laravel", "Apple", "Passbook"],
     "authors": [
         {
-            "name": "The Next Web BV",
-            "email": "support@thenextweb.com"
+            "name": "Project Saturn Studios",
+            "email": "usftechacg@gmail.com"
         }
     ],
     "require": {
         "php": ">=5.5.9",
         "ext-zip": "*",
-        "illuminate/support": "5.*"
+        "illuminate/support": "6.*"
     },
     "require-dev": {
         "phpunit/phpunit" : "4.*",
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Thenextweb\\": "src"
+            "ProjectSaturn\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Thenextweb\\Test\\": "tests"
+            "ProjectSaturn\\Test\\": "tests"
         }
     }
 }

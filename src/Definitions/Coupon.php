@@ -1,12 +1,12 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Jean Rumeau
- * Date: 13/09/2017
- * Time: 22:06
+ * User: Angel Gonzalez
+ * Date: 09/25/2019
+ * Time: 00:40
  */
 
-namespace Thenextweb\Definitions;
+namespace ProjectSaturn\Definitions;
 
 class Coupon extends AbstractDefinition
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Thenextweb;
+namespace ProjectSaturn;
 
 use Illuminate\Support\ServiceProvider;
 
-class PassGeneratorServiceProvider extends ServiceProvider
+class AppyPassServiceProvider extends ServiceProvider
 {
     /**
      * Indicates if loading of the provider is deferred.
@@ -40,8 +40,8 @@ class PassGeneratorServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('passgenerator', function ($app) {
-            return new PassGenerator($app);
+        $this->app->bind('appypass', function ($app) {
+            return new AppyPass($app);
         });
 
         $this->commands($this->commands);
@@ -52,13 +52,12 @@ class PassGeneratorServiceProvider extends ServiceProvider
      * have a subset of the configurable values in their local version of the config file. This uses
      * the default values unless there are published ones.
      *
-     * http://stagerightlabs.com/blog/laravel5-pacakge-development-service-provider
      */
     private function setupConfig()
     {
         //This will merge the 'default' values from the original config file of the package
         // with the values of the "published" config file (in case the config files were not published)
-        $this->mergeConfigFrom(realpath(__DIR__ . '/../config/passgenerator.php'), 'passgenerator');
+        $this->mergeConfigFrom(realpath(__DIR__ . '/../config/appypass.php'), 'appypass');
 
         $this->mergeConfigFrom(realpath(__DIR__ . '/../config/pass-filesystem.php'), 'filesystems');
     }
@@ -69,7 +68,7 @@ class PassGeneratorServiceProvider extends ServiceProvider
     private function publishAllConfigs()
     {
         $this->publishes([
-            realpath(__DIR__ . '/../config/passgenerator.php') => config_path('passgenerator.php'),
+            realpath(__DIR__ . '/../config/appypass.php') => config_path('appypass.php'),
         ], 'config');
     }
 }

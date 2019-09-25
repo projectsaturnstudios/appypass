@@ -1,10 +1,10 @@
 <?php
 
-namespace Thenextweb\Facades;
+namespace ProjectSaturn\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class PassGenerator extends Facade
+class AppyPass extends Facade
 {
     /**
      * Get the registered name of the component.
@@ -13,6 +13,6 @@ class PassGenerator extends Facade
      */
     protected static function getFacadeAccessor()
     {
-        return 'passgenerator';
+        return 'appypass';
     }
 }

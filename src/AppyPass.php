@@ -1,14 +1,14 @@
 <?php
 
-namespace Thenextweb;
+namespace ProjectSaturn;
 
 use Illuminate\Support\Facades\Storage;
 use InvalidArgumentException;
 use RuntimeException;
-use Thenextweb\Definitions\DefinitionInterface;
+use ProjectSaturn\Definitions\DefinitionInterface;
 use ZipArchive;
 
-class PassGenerator
+class AppyPass
 {
     /**
      * The store with the pass ID certificate.
@@ -77,7 +77,7 @@ class PassGenerator
     public function __construct($passId = false, $replaceExistent = false)
     {
         // Set certificate
-        $certPath = config('passgenerator.certificate_store_path');
+        $certPath = config('appypass.certificate_store_path');
 
         if (is_file($certPath)) {
             $this->certStore = file_get_contents($certPath);
@@ -88,10 +88,10 @@ class PassGenerator
         }
 
         // Set password
-        $this->certStorePassword = config('passgenerator.certificate_store_password');
+        $this->certStorePassword = config('appypass.certificate_store_password');
 
         // Set WWDR certificate
-        $wwdrCertPath = config('passgenerator.wwdr_certificate_path');
+        $wwdrCertPath = config('appypass.wwdr_certificate_path');
 
         if (is_file($wwdrCertPath) && @openssl_x509_read(file_get_contents($wwdrCertPath))) {
             $this->wwdrCertPath = $wwdrCertPath;
@@ -112,9 +112,9 @@ class PassGenerator
 
         $this->passFilename = $passId . '.pkpass';
 
-        if (Storage::disk('passgenerator')->has($this->passFilename)) {
+        if (Storage::disk('appypass')->has($this->passFilename)) {
             if ($replaceExistent) {
-                Storage::disk('passgenerator')->delete($this->passFilename);
+                Storage::disk('appypass')->delete($this->passFilename);
             } else {
                 throw new RuntimeException(
                     'The file ' . $this->passFilename . ' already exists, try another pass_id or download.'
@@ -122,7 +122,7 @@ class PassGenerator
             }
         }
 
-        $this->passRealPath = Storage::disk('passgenerator')
+        $this->passRealPath = Storage::disk('appypass')
                 ->getDriver()
                 ->getAdapter()
                 ->getPathPrefix() . $this->passRelativePath;
@@ -134,7 +134,7 @@ class PassGenerator
      */
     public function __destruct()
     {
-        Storage::disk('passgenerator')->deleteDirectory($this->passRelativePath);
+        Storage::disk('appypass')->deleteDirectory($this->passRelativePath);
     }
 
     /**
@@ -238,7 +238,7 @@ class PassGenerator
         // Create and store the json manifest
         $manifest = $this->createJsonManifest();
 
-        Storage::disk('passgenerator')->put($this->passRelativePath . '/manifest.json', $manifest);
+        Storage::disk('appypass')->put($this->passRelativePath . '/manifest.json', $manifest);
 
         // Sign manifest with the certificate
         $this->signManifest();
@@ -247,12 +247,12 @@ class PassGenerator
         $this->zipItAll();
 
         // Get it out of the tmp folder and clean everything up
-        Storage::disk('passgenerator')->move($this->passRelativePath . '/' . $this->passFilename, $this->passFilename);
+        Storage::disk('appypass')->move($this->passRelativePath . '/' . $this->passFilename, $this->passFilename);
 
-        Storage::disk('passgenerator')->deleteDirectory($this->passRelativePath);
+        Storage::disk('appypass')->deleteDirectory($this->passRelativePath);
 
         // Return the contents, but keep the pkpass stored for future downloads
-        return Storage::disk('passgenerator')->get($this->passFilename);
+        return Storage::disk('appypass')->get($this->passFilename);
     }
 
     /**
@@ -264,8 +264,8 @@ class PassGenerator
      */
     public static function getPass($passId)
     {
-        if (Storage::disk('passgenerator')->has($passId . '.pkpass')) {
-            return Storage::disk('passgenerator')->get($passId . '.pkpass');
+        if (Storage::disk('appypass')->has($passId . '.pkpass')) {
+            return Storage::disk('appypass')->get($passId . '.pkpass');
         }
 
         return false;
@@ -280,7 +280,7 @@ class PassGenerator
      */
     public function getPassFilePath($passId)
     {
-        if (Storage::disk('passgenerator')->has($passId . '.pkpass')) {
+        if (Storage::disk('appypass')->has($passId . '.pkpass')) {
             return $this->passRealPath . '/../' . $this->passFilename;
         }
 
@@ -391,11 +391,11 @@ class PassGenerator
         // PKCS7 returns a signature on PEM format (.p7s), we only need the DER signature so Apple does not cry.
         // It turns out we are lucky since p7s format is just a Base64 encoded DER signature
         // enclosed between some email headers a MIME bs, so we just need to remove some lines
-        $signature = Storage::disk('passgenerator')->get($this->passRelativePath . '/' . $this->signatureFilename);
+        $signature = Storage::disk('appypass')->get($this->passRelativePath . '/' . $this->signatureFilename);
 
         $signature = $this->removeMimeBS($signature);
 
-        Storage::disk('passgenerator')->put($this->passRelativePath . '/' . $this->signatureFilename, $signature);
+        Storage::disk('appypass')->put($this->passRelativePath . '/' . $this->signatureFilename, $signature);
     }
 
     /**
@@ -440,7 +440,7 @@ class PassGenerator
     private function createTempFolder()
     {
         if (!is_dir($this->passRealPath)) {
-            Storage::disk('passgenerator')->makeDirectory($this->passRelativePath);
+            Storage::disk('appypass')->makeDirectory($this->passRelativePath);
         }
     }
 }

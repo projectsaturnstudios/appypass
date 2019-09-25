@@ -1,6 +1,6 @@
 <?php
 
-namespace Thenextweb\Definitions;
+namespace ProjectSaturn\Definitions;
 
 use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use Illuminate\Validation\Factory as Validator;
 use Illuminate\Validation\ValidationException;
-use Thenextweb\Definitions\Dictionary\Beacon;
-use Thenextweb\Definitions\Dictionary\Field;
-use Thenextweb\Definitions\Dictionary\Location;
-use Thenextweb\Definitions\Dictionary\Barcode;
-use Thenextweb\Definitions\Dictionary\Nfc;
+use ProjectSaturbn\Definitions\Dictionary\Beacon;
+use ProjectSaturbn\Definitions\Dictionary\Field;
+use ProjectSaturbn\Definitions\Dictionary\Location;
+use ProjectSaturbn\Definitions\Dictionary\Barcode;
+use ProjectSaturbn\Definitions\Dictionary\Nfc;
 
 abstract class AbstractDefinition extends Fluent implements DefinitionInterface
 {

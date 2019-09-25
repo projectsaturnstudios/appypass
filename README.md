@@ -1,6 +1,8 @@
-# Passgenerator
+# AppyPass
 
-Passgenerator is a Laravel5+ package that allows you to easily create passes compatible with Apple Wallet (former Passbook).
+AppyPass is a Laravel6+ package that allows you to easily create passes compatible with Apple Wallet.
+
+(**forked from [thenextweb/passgenerator](https://github.com/thenextweb/passgenerator)**)
 
 # 👉 Table of Contents 👈
 * [👮 Requirements](#-requirements)
@@ -11,21 +13,21 @@ Passgenerator is a Laravel5+ package that allows you to easily create passes com
 
 ## 👮 Requirements
 
-Only things needed are Laravel 5+ and to have the [PHP Zip extension](http://php.net/manual/en/book.zip.php) installed and enabled.
+Only things needed are Laravel 6+ and to have the [PHP Zip extension](http://php.net/manual/en/book.zip.php) installed and enabled.
 
 ## 💾 Installation
 The best and easiest way o install the package is using the [Composer](https://getcomposer.org/) package manager. To do so, run this command in your project root:
 
 ```sh
-composer require thenextweb/passgenerator
+composer require projectsaturnstudios/appypass
 ```
 
-Then, add the `Thenextweb\PassGeneratorServiceProvider` provider to the providers array in `config/app.php`:
+Then, add the `ProjectSaturn\AppyPassServiceProvider` provider to the providers array in `config/app.php`:
 
 ```php
 'providers' => [
 // ...
-    Thenextweb\PassGeneratorServiceProvider::class,
+    ProjectSaturn\AppyPassServiceProvider::class,
 ],
 ```
 
@@ -62,7 +64,7 @@ In case there is a reason the config file must be modified (conflicting env keys
 
 ```sh
 // file will be at config/passgenerator.php
-php artisan vendor:publish --provider="Thenextweb\PassGeneratorServiceProvider"
+php artisan vendor:publish --provider="ProjectSaturn\AppyPassServiceProvider"
 ```
 
 ## 🚀 Usage
@@ -70,7 +72,7 @@ To create a pass for the first time, you have to first create the pass definitio
 
 ```php
 
-use Thenextweb\PassGenerator;
+use ProjectSaturn\AppyPass;
 
 //...
 
@@ -192,34 +194,36 @@ $pkpass = $pass->create();
 Now, a valid ticket is already in place. Apple recommends a MIME type to serve it to its devices so something like the following should do:
 
 ```php
-return new Response($pkpass, 200, [
-    'Content-Transfer-Encoding' => 'binary',
-    'Content-Description' => 'File Transfer',
-    'Content-Disposition' => 'attachment; filename="pass.pkpass"',
-    'Content-length' => strlen($pkpass),
-    'Content-Type' => PassGenerator::getPassMimeType(),
-    'Pragma' => 'no-cache',
-]);
+$headers = [
+   'Content-Transfer-Encoding' => 'binary',
+   'Content-Description' => 'File Transfer',
+   'Content-Disposition' => 'attachment; filename="pass.pkpass"',
+   'Content-length' => strlen($pkpass),
+   'Content-Type' => PassGenerator::getPassMimeType(),
+   'Pragma' => 'no-cache',
+];
+
+return response($pkpass, 200, $headers);
 ```
 
 Later on, if your users need to download the pass again, you don't need to create it again (wasting all those CPU cycles on crypto stuff), you can just do something like:
 
 ```php
 // If the pass for that ID does not exist, you can then proceed to generate it as done above.
-$pkpass = PassGenerator::getPass($pass_identifier);
+$pkpass = AppyPass::getPass($pass_identifier);
 if (!$pkpass) {
     $pkpass = $this->createWalletPass();
 }
 // ...
 ```
 
-It is also possible to retrieve the actual path to a pass on your filesystem. By default, _Passgenerator_  will copy your default filesystem config (usually rooted on `storage_path('app')` but you can always do `getPassFilePath($pass_identifier)` and retrieve the real path (in case it exists).
+It is also possible to retrieve the actual path to a pass on your filesystem. By default, _AppyPass_  will copy your default filesystem config (usually rooted on `storage_path('app')` but you can always do `getPassFilePath($pass_identifier)` and retrieve the real path (in case it exists).
 
 ### Definitions
 It is also possible to programatically create/modify a pass using the definitions objects. Eg.-
 
 ```
-$coupon = Thenextweb\Definitions\Coupon();
+$coupon = ProjectSaturn\Definitions\Coupon();
 $coupon->setDescription('Coupon description');
 $coupon->setSerialNumber('123456');
 
@@ -250,5 +254,5 @@ $coupon->addPrimaryField(new Date('created_at', Carbon::now(), [
 $barcode = new Barcode('7898466321', Barcode::FORMAT_CODE128);
 $coupon->addBarcode($barcode);
 
-$passgenerator->setPassDefinition($coupon);
+$appypass->setPassDefinition($coupon);
 ```
