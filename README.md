@@ -63,7 +63,7 @@ Once all this tedious process has been done, everything is almost ready to start
 In case there is a reason the config file must be modified (conflicting env keys, dynamic certificates required...), it can be published with the following command:
 
 ```sh
-// file will be at config/passgenerator.php
+// file will be at config/appypass.php
 php artisan vendor:publish --provider="ProjectSaturn\AppyPassServiceProvider"
 ```
 
@@ -78,7 +78,7 @@ use ProjectSaturn\AppyPass;
 
 $pass_identifier = 'somekindofid';  // This, if set, it would allow for retrieval later on of the created Pass
 
-$pass = new PassGenerator($pass_identifier);
+$pass = new AppyPass($pass_identifier);
 
 $pass_definition = [
     "description"       => "description",
@@ -199,7 +199,7 @@ $headers = [
    'Content-Description' => 'File Transfer',
    'Content-Disposition' => 'attachment; filename="pass.pkpass"',
    'Content-length' => strlen($pkpass),
-   'Content-Type' => PassGenerator::getPassMimeType(),
+   'Content-Type' => AppyPass::getPassMimeType(),
    'Pragma' => 'no-cache',
 ];
 
