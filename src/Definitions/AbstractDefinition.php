@@ -591,7 +591,7 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
             'barcode' => 'sometimes',
             //'barcode.altText',
             'barcode.format' => 'required_with:barcode',
-            'barcode.message' => 'require_with:barcode',
+            'barcode.message' => 'required_with:barcode',
             'barcode.messageEncoding' => 'required_with:barcode',
 
             'barcodes' => 'sometimes|array',
