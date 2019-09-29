@@ -6,7 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
-use Illuminate\Validation\Factory as Validator;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
 use ProjectSaturn\Definitions\Dictionary\Beacon;
 use ProjectSaturn\Definitions\Dictionary\Field;
@@ -487,7 +487,8 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
     protected function validate($data)
     {
         try {
-            $this->validator->make($data, $this->rules())->validate();
+            //$this->validator->make($data, $this->rules())->validate();
+            Validator::make($data, $this->rules())->validate();
         } catch (ValidationException $e) {
             dd($e->validator->getMessageBag()->toArray());
         }
