@@ -8,11 +8,11 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Fluent;
 use Illuminate\Validation\Factory as Validator;
 use Illuminate\Validation\ValidationException;
-use ProjectSaturbn\Definitions\Dictionary\Beacon;
-use ProjectSaturbn\Definitions\Dictionary\Field;
-use ProjectSaturbn\Definitions\Dictionary\Location;
-use ProjectSaturbn\Definitions\Dictionary\Barcode;
-use ProjectSaturbn\Definitions\Dictionary\Nfc;
+use ProjectSaturn\Definitions\Dictionary\Beacon;
+use ProjectSaturn\Definitions\Dictionary\Field;
+use ProjectSaturn\Definitions\Dictionary\Location;
+use ProjectSaturn\Definitions\Dictionary\Barcode;
+use ProjectSaturn\Definitions\Dictionary\Nfc;
 
 abstract class AbstractDefinition extends Fluent implements DefinitionInterface
 {
