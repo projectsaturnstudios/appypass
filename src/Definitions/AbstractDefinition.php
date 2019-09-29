@@ -385,6 +385,22 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
         return $this->getStructure('primaryFields');
     }
 
+    public function removeFromStructure($structure, $col, $val)
+    {
+        $fields = $this->getStructure($structure);
+
+        foreach ($fields as $idx => $field)
+        {
+            if($field->$col == $val)
+            {
+                $fields->forget($idx);
+            }
+            break;
+        }
+
+        return $this;
+    }
+
     /* ############### */
     /* SECONDARY FIELDS */
 
