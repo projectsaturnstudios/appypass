@@ -398,6 +398,10 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
             break;
         }
 
+        $fields = $fields->values();
+
+        $this->attributes['structure'][$structure] = $fields;
+
         return $this;
     }
 
