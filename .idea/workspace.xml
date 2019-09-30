@@ -4,6 +4,7 @@
     <list default="true" id="8068dcbd-bc8c-4929-93a3-fd16a3f4ba6b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Definitions/AbstractDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Definitions/AbstractDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Definitions/Dictionary/Barcode.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Definitions/Dictionary/Barcode.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +72,7 @@
       <workItem from="1569427707933" duration="583000" />
       <workItem from="1569726332866" duration="15000" />
       <workItem from="1569726354985" duration="271000" />
-      <workItem from="1569735350098" duration="2256000" />
+      <workItem from="1569735350098" duration="2874000" />
     </task>
     <servers />
   </component>
@@ -96,7 +97,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/src/Definitions/AbstractDefinition.php</url>
-          <line>510</line>
+          <line>517</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

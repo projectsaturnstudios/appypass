@@ -208,6 +208,13 @@ abstract class AbstractDefinition extends Fluent implements DefinitionInterface
         return $this;
     }
 
+    public function removeBarcodes()
+    {
+        unset($this->attributes['barcodes']);
+
+        return $this;
+    }
+
     public function setBackgroundColor($color)
     {
         $this->attributes['backgroundColor'] = $color;

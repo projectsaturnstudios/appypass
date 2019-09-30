@@ -75,4 +75,15 @@ class Barcode extends Fluent
 
         return $this;
     }
+
+    /**
+     * @param $changeMessage
+     * @return $this
+     */
+    public function setChangeMessage($changeMessage)
+    {
+        $this->attributes['changeMessage'] = $changeMessage;
+
+        return $this;
+    }
 }
